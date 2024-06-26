@@ -1,13 +1,14 @@
 import { create } from 'zustand'
 
-import { GameOptionDetailType, GameType } from '@/apis/game'
+import { GameOptionDetailType } from '@/apis/getGame'
+import { GameTypes } from '@/types/type'
 
 interface GameState {
-  selectedGames: GameType[]
+  selectedGames: GameTypes[]
   selectedGameIds: number[]
   selectedGamesCount: number
-  addGame: (game: GameType) => void
-  removeGame: (game: GameType) => void
+  addGame: (game: GameTypes) => void
+  removeGame: (game: GameTypes) => void
   resetGames: () => void
 }
 
@@ -115,4 +116,16 @@ export const useSelectedOption = create<SelectedOptionStore>((set) => ({
       }
     }),
   resetOptions: () => set(initialOptionState),
+}))
+
+interface OptionStore {
+  optionCount: number
+  setOptionCount: (count: number) => void
+  resetOptionCount: () => void
+}
+
+export const useOptionStore = create<OptionStore>((set) => ({
+  optionCount: 0,
+  setOptionCount: (count) => set({ optionCount: count }),
+  resetOptionCount: () => set({ optionCount: 0 }),
 }))

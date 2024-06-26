@@ -8,6 +8,7 @@ import '@packages/ui/index.css'
 import '@/styles/globals.css'
 import '@/styles/fonts.css'
 import '@/styles/colors.css'
+import '@/styles/loader.css'
 
 import { getMainProfileImage } from '@/apis/getProfileImage'
 
@@ -15,7 +16,6 @@ import Navbar from '@/components/Navbar/Navbar'
 import { ModalProvider } from '@/components/providers/modal-provider'
 import AuthSession from '@/components/providers/session-provider'
 import WebSocketProvider from '@/components/providers/socket-provider'
-import { ToastProvider } from '@/components/Toast/toast'
 
 import { defaultImage } from '@/store/defaultState'
 
@@ -52,10 +52,10 @@ export default async function RootLayout({
   children: React.ReactNode
   modal: React.ReactNode
 }>) {
-  // 대표 프로필 받아오기
   const session = await getServerSession(options)
-  const profileMainImageData = await getMainProfileImage()
 
+  // 세션이 있으면, 대표 프로필
+  const profileMainImageData = session ? await getMainProfileImage() : undefined
   const profileImageUrl = profileMainImageData
     ? profileMainImageData.result.profileImageUrl
     : defaultImage
@@ -70,16 +70,14 @@ export default async function RootLayout({
       </head>
       <body>
         <AuthSession>
-          <ToastProvider>
-            <WebSocketProvider>
-              <ModalProvider>
-                <Navbar session={session} profileImageUrl={profileImageUrl} />
+          <WebSocketProvider>
+            <ModalProvider>
+              <Navbar session={session} profileImageUrl={profileImageUrl} />
 
-                {children}
-                {modal}
-              </ModalProvider>
-            </WebSocketProvider>
-          </ToastProvider>
+              {children}
+              {modal}
+            </ModalProvider>
+          </WebSocketProvider>
         </AuthSession>
       </body>
     </html>

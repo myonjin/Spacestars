@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation'
 
 import { GameListButton } from '@packages/ui'
 
-import { GameType } from '@/apis/game'
 import useDrag from '@/hooks/useDrag'
+import { GameTypes } from '@/types/type'
 
 import styles from './teamList.module.css'
 
@@ -14,9 +14,9 @@ const GameItem = ({
   currentGame,
   onClick,
 }: {
-  game: GameType
+  game: GameTypes
   currentGame: string
-  onClick: (game: GameType) => void
+  onClick: (game: GameTypes) => void
 }) => {
   const item = {
     gameImage: game.gameImage,
@@ -38,22 +38,13 @@ export default function GameSelectBox({
   games,
   searchParams,
 }: {
-  games: GameType[]
+  games: GameTypes[]
   searchParams: { [key: string]: string }
 }) {
   const router = useRouter()
-  const {
-    isDragging,
-    handleMouseDown,
-    handleMouseUp,
-    handleMouseMove,
-    divRef,
-  } = useDrag()
+  const { handleMouseDown, handleMouseUp, handleMouseMove, divRef } = useDrag()
 
-  const UpdateGame = (item: GameType) => {
-    if (!isDragging) {
-      return
-    }
+  const UpdateGame = (item: GameTypes) => {
     const currentParams = new URLSearchParams(searchParams)
     currentParams.set('game', item.gameName)
     router.push(`?${currentParams.toString()}`)

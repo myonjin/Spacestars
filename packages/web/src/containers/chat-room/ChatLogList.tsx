@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react'
+
 import { ChatMessageType } from '@/types/ChatType'
 
 import MessageGroup from './MessageGroup'
@@ -24,11 +26,23 @@ export default function ChatLogList({
     return groups
   }, [] as ChatMessageType[][])
 
+  const chatLogRef = useRef<HTMLDivElement>(null)
+
+  // 스크롤을 항상 아래로 이동
+  useEffect(() => {
+    if (chatLogRef.current) {
+      chatLogRef.current.scrollTop = chatLogRef.current.scrollHeight
+    }
+  }, [msgLog])
+
   return (
-    <section className="flex flex-col w-full h-[calc(100%_-_90px)] overflow-y-scroll bg-[#f8f8f9] px-[50px] py-[24px]">
-      {groupedMessages.map((messages) => (
+    <section
+      className="flex flex-col w-full h-[calc(100%_-_90px)] overflow-y-scroll bg-[#f8f8f9] px-[50px] py-[24px]"
+      ref={chatLogRef}
+    >
+      {groupedMessages.map((messages, index) => (
         <MessageGroup
-          key={messages[0].createdAt}
+          key={messages[0].createdAt + index}
           messages={messages}
           UUID={UUID}
         />

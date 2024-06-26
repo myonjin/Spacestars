@@ -2,14 +2,17 @@
 
 import { useEffect, useState } from 'react'
 
-import { GameType, getGameOptions } from '@/apis/game'
+import { getGameOptions } from '@/apis/getGame'
+
 import GameSelectBox from '@/components/game/GameSelectBox'
-import { useGameStore } from '@/store/gameStore'
+import { useGameStore, useOptionStore } from '@/store/gameStore'
+import { GameTypes } from '@/types/type'
 
 type OptionType = 'isClass' | 'isPosition' | 'isServer' | 'isTier'
 
-const GameOption = ({ item }: { item: GameType }) => {
+const GameOption = ({ item }: { item: GameTypes }) => {
   const [options, setOptions] = useState<OptionType[]>([])
+  const { setOptionCount } = useOptionStore((state) => state)
 
   useEffect(() => {
     const getIsOption = async () => {
@@ -24,9 +27,9 @@ const GameOption = ({ item }: { item: GameType }) => {
           }
         })
         setOptions(optionList)
+        setOptionCount(optionList.length)
       }
     }
-
     getIsOption()
   }, [])
 

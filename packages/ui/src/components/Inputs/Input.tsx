@@ -13,6 +13,7 @@ export interface InputProps
   /** 수정 가능 여부 */
   disabled?: boolean
   value?: string
+  isChecked?: boolean
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
@@ -24,6 +25,7 @@ const Input = ({
   label,
   required,
   disabled = false,
+  isChecked = true,
   ...props
 }: InputProps) => {
   const isDisabled = disabled ? 'input--disabled' : ''
@@ -51,10 +53,11 @@ const Input = ({
           />
         </div>
       </div>
-
-      <div className="input--valid">
-        <CheckIcon fill={disabled ? 'white' : 'var(--color-primary)'} />
-      </div>
+      {isChecked && (
+        <div className="input--valid">
+          <CheckIcon fill={disabled ? 'white' : 'var(--color-primary)'} />
+        </div>
+      )}
     </div>
   )
 }

@@ -1,4 +1,7 @@
+'use client'
+
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 import { Session } from 'next-auth'
 
@@ -9,6 +12,7 @@ import { defaultImage } from '@/store/defaultState'
 import { LoginButton } from './NavbarItem'
 
 import Gutter from '../Gutter'
+import SearchBox from '../search/SearchBox'
 
 const NavRightBox = ({ children }: { children?: React.ReactNode }) => {
   return <div className="flex max-w-[328px] pl-[50px]">{children}</div>
@@ -19,8 +23,11 @@ export default function Navbar({
   profileImageUrl,
 }: {
   session: Session | null
-  profileImageUrl: string | null
+  profileImageUrl: string | null | undefined
 }) {
+  const pathName = usePathname()
+  const noSearchBoxPage = ['/dashboard/queue']
+
   return (
     <header>
       <nav className="h-[100px] w-full flex flex-row items-center bg-[color:var(--White-50,#fff)] sticky z-[1000] px-[54px] py-5 border-b-[#ddd] border-b border-solid left-0 top-0">
@@ -37,6 +44,8 @@ export default function Navbar({
             </div>
           </Link>
         </div>
+
+        {!noSearchBoxPage.includes(pathName) && <SearchBox />}
 
         <Gutter className="flex-1" />
 

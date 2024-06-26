@@ -4,6 +4,14 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useReducer } from 'react'
 
+import {
+  HeartHandshakeIcon,
+  HomeIcon,
+  MessagesSquareIcon,
+  Radio,
+  UserSearch,
+} from 'lucide-react'
+
 import styles from './Sidebar.module.css'
 
 const SIDE_LINK = [
@@ -11,47 +19,51 @@ const SIDE_LINK = [
     index: 1,
     title: '대시보드',
     href: '/dashboard',
+    svg: <HomeIcon />,
   },
   {
     index: 2,
     title: '팀원 모집',
     href: '/dashboard/team-list',
+    svg: <UserSearch />,
   },
   {
     index: 3,
     title: '채팅',
     href: '/dashboard/chat',
+    svg: <MessagesSquareIcon />,
   },
   {
     index: 4,
     title: '추천 친구',
     href: '/dashboard/swipe',
+    svg: <HeartHandshakeIcon />,
+  },
+  {
+    index: 4,
+    title: '실시간 매칭',
+    href: '/dashboard/queue',
+    svg: <Radio />,
   },
 ]
 
 const SideBarItem = ({ item }: { item: any }) => {
   const pathname = usePathname()
+
+  /** 정확하게 일치하거나, /dashboard 를 제외한 경로로 시작하면 색칠 */
   const isPathname = pathname === item.href
+  const isDashboardPath = '/dashboard' === item.href
+  const isNotDashboardPath = '/dashboard' !== item.href
+  const isChatPath = pathname.startsWith(item.href) && isNotDashboardPath
 
   return (
     <li className={styles['side-menu']}>
       <Link
         href={item.href}
-        className={`${styles.a} ${isPathname ? 'text-[color:var(--Main-Color-1,#6a64e9)]' : 'text-[color:#9c9cab]'}`}
+        // className={`${styles.link} ${isPathname ? 'text-[color:var(--Main-Color-1,#6a64e9)]' : 'text-[color:#9c9cab]'}`}
+        className={`${styles.link} ${isPathname || isChatPath ? 'text-[color:var(--Main-Color-1,#6a64e9)]' : isDashboardPath ? 'text-[color:#9c9cab]' : 'text-[color:#9c9cab]'}`}
       >
-        {/* TODO: 폰트 컬러, SVG 수정 */}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          viewBox="0 0 24 24"
-        >
-          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-          <path d="M9 22V12h6v10" />
-        </svg>
+        {item.svg}
         <p className="text-[16px] not-italic leading-[normal]">{item.title}</p>
       </Link>
     </li>

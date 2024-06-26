@@ -1,58 +1,67 @@
 'use client'
 
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
-import { useState } from 'react'
+import { friendsWithBasicDataType } from '@/lib/getFriendsData'
 
+import FriendsList from '../Friends/FriendsList'
+
+import { ChatRightSide } from './ChatRightSide'
 import styles from './Sidebar.module.css'
 
-const MemberItem = () => {
-  const status = 'offline'
-
+const DefaultRightSide = ({
+  friendsList,
+}: {
+  friendsList: friendsWithBasicDataType[]
+}) => {
   return (
-    <div className={styles.contacts}>
-      <div className={styles.user}>
-        <div className={`${styles['user-img']} ${styles[status]}`}>
-          <Image src="" alt="" fill />
-        </div>
-
-        <div className={styles.username}>
-          <p>Lisandro MatoLisandro MatoLisandro Mato</p>
-          <div className={`${styles['user-status']} ${styles[status]}`}></div>
-        </div>
-      </div>
-    </div>
+    <section>
+      <div className={styles['side-title']}>Friends</div>
+      <FriendsList items={friendsList} />
+    </section>
   )
 }
 
-export default function RightSidebar() {
-  // FIXME: 이걸 같이 관리하는게 네브바에 있어야 함. 열고 닫을 수 있게
-  const [rightSide, setRightSide] = useState(false)
+export default function RightSidebar({
+  token,
+  isChatPage,
+  isGroupChatPage,
+  friendsList,
+}: {
+  token: string
+  isChatPage: boolean
+  isGroupChatPage: boolean
+  friendsList: friendsWithBasicDataType[]
+}) {
+  // FIXME: 이걸 같이 관리하는게 네브바에 있어야 함. 열고 닫을 수 있게 => 친구 아이콘으로 하기
+  // const [rightSide, setRightSide] = useState(false)
+
   const pathName = usePathname()
   const pathParts = pathName.split('/')
 
-  // 채팅방
-  if (pathName.includes('chat') && pathParts.length === 4) {
-    return (
-      <section
-        className={`${styles['right-side']} ${rightSide && `${styles.active}`}`}
-      >
-        채팅 참여자
-      </section>
-    )
-  }
-  // TODO: 친구 리스트 불러오기
+  const roomNumber = pathParts.at(-1) ?? ''
 
-  // 기본 친구
   return (
     <section
-      className={`${styles['right-side']} ${rightSide && `${styles.active}`}`}
+      className={`${styles['right-side']}`}
+      // className={`${styles['right-side']} ${rightSide && `${styles.active}`}`}
     >
       <div className={styles['side-wrapper']}>
-        <div className={styles['side-title']}>Friends</div>
-
-        <MemberItem />
+        {isGroupChatPage ? (
+          <ChatRightSide
+            roomNumber={roomNumber}
+            token={token}
+            roomType="team"
+          />
+        ) : isChatPage ? (
+          <ChatRightSide
+            roomNumber={roomNumber}
+            token={token}
+            roomType="one-to-one"
+          />
+        ) : (
+          <DefaultRightSide friendsList={friendsList} />
+        )}
       </div>
     </section>
   )
