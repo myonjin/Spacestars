@@ -18,9 +18,10 @@ import AuthSession from '@/components/providers/session-provider'
 import WebSocketProvider from '@/components/providers/socket-provider'
 
 import { defaultImage } from '@/store/defaultState'
+import { ToastProvider } from '@/components/Toast/toast-provider'
 
 export const metadata: Metadata = {
-  title: '우주별: 우리 주변의 별별 사람들',
+  title: '우주별 - 우리 주변의 별별 사람들',
   description:
     '다양한 게임을 즐기며 새로운 친구를 만날 수 있는 커뮤니티 플랫폼',
   keywords: ['게임', '우주', '플랫폼', '엔터테인먼트', '콘텐츠'],
@@ -38,11 +39,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: 'light',
+  themeColor: 'dark',
   width: 'device-width',
-  initialScale: 1,
-  maximumScale: 2,
-  userScalable: false,
 }
 
 export default async function RootLayout({
@@ -68,16 +66,17 @@ export default async function RootLayout({
           content="RF3jYM4llYmMJX3IkZbGaclTJ74I2LihgTOlqjsqppg"
         />
       </head>
-      <body>
+      <body data-theme="dark" className="bg-[color:var(--background-color)]">
         <AuthSession>
-          <WebSocketProvider>
-            <ModalProvider>
-              <Navbar session={session} profileImageUrl={profileImageUrl} />
-
-              {children}
-              {modal}
-            </ModalProvider>
-          </WebSocketProvider>
+          <ToastProvider>
+            <WebSocketProvider>
+              <ModalProvider>
+                <Navbar session={session} profileImageUrl={profileImageUrl} />
+                {children}
+                {modal}
+              </ModalProvider>
+            </WebSocketProvider>
+          </ToastProvider>
         </AuthSession>
       </body>
     </html>

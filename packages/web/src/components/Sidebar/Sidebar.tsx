@@ -16,31 +16,26 @@ import styles from './Sidebar.module.css'
 
 const SIDE_LINK = [
   {
-    index: 1,
     title: '대시보드',
     href: '/dashboard',
     svg: <HomeIcon />,
   },
   {
-    index: 2,
     title: '팀원 모집',
     href: '/dashboard/team-list',
     svg: <UserSearch />,
   },
   {
-    index: 3,
     title: '채팅',
     href: '/dashboard/chat',
     svg: <MessagesSquareIcon />,
   },
   {
-    index: 4,
     title: '추천 친구',
     href: '/dashboard/swipe',
     svg: <HeartHandshakeIcon />,
   },
   {
-    index: 4,
     title: '실시간 매칭',
     href: '/dashboard/queue',
     svg: <Radio />,
@@ -60,8 +55,7 @@ const SideBarItem = ({ item }: { item: any }) => {
     <li className={styles['side-menu']}>
       <Link
         href={item.href}
-        // className={`${styles.link} ${isPathname ? 'text-[color:var(--Main-Color-1,#6a64e9)]' : 'text-[color:#9c9cab]'}`}
-        className={`${styles.link} ${isPathname || isChatPath ? 'text-[color:var(--Main-Color-1,#6a64e9)]' : isDashboardPath ? 'text-[color:#9c9cab]' : 'text-[color:#9c9cab]'}`}
+        className={`${styles.link} ${isPathname || isChatPath ? 'text-[color:var(--sidebar-text-active)]' : isDashboardPath ? 'text-[color:var(--sidebar-text)]' : 'text-[color:var(--sidebar-text)]'}`}
       >
         {item.svg}
         <p className="text-[16px] not-italic leading-[normal]">{item.title}</p>
@@ -77,8 +71,9 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`${styles['left-side']} ${leftSide ? `${styles.active}` : ''}`}
+      className={`${styles['left-side']} left-side ${leftSide ? `${styles.active}` : ''}`}
     >
+      {/* 접혔을 때, 열기 버튼 */}
       <button
         className={styles['left-side-button']}
         type="button"
@@ -109,8 +104,8 @@ export default function Sidebar() {
       </button>
 
       <ul className={styles['side-wrapper']}>
-        {SIDE_LINK.map((item) => (
-          <SideBarItem key={item.index} item={item} />
+        {SIDE_LINK.map((item, index) => (
+          <SideBarItem key={index} item={item} />
         ))}
       </ul>
     </aside>

@@ -6,6 +6,8 @@ export interface JoinButtonProps
   className?: string
   isLocked?: boolean
   isFinished?: boolean
+  buttonText?: string
+  iconFill?: string
   onClick?: () => void
 }
 
@@ -13,12 +15,19 @@ const JoinButton = ({
   className,
   isLocked = false,
   isFinished = false,
+  buttonText,
   onClick,
+  iconFill,
   ...props
 }: JoinButtonProps) => {
   const buttonStyle = isFinished ? 'fin' : 'join'
-  const buttonText = isFinished ? '모집완료' : '참가하기'
-  const iconFill = isFinished ? '#a8a8a8' : '#7d12ff'
+
+  let text
+  if (buttonText) {
+    text = buttonText
+  } else {
+    text = isFinished ? '모집완료' : '참가하기'
+  }
 
   return (
     <button
@@ -27,7 +36,7 @@ const JoinButton = ({
       className={`join-button ${buttonStyle} ${className}`}
       {...props}
     >
-      <p>{buttonText}</p>
+      <p>{text}</p>
 
       {isLocked && (
         <i>

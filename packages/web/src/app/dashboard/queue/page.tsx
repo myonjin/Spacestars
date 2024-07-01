@@ -1,13 +1,13 @@
-import BackGroundTextBox from '@/containers/queue/BackGroundTextBox'
-import QueueHeader from '@/containers/queue/QueueHeader'
-import QueueLayout from '@/containers/queue/QueueLayout'
+import { getGames } from '@/apis/getGame'
 
-export default function page() {
+import GameSelectBox from '@/containers/queue/GameSelectBox'
+
+export default async function page() {
+  const games = await getGames()
+
   return (
-    <div className="relative w-full bg-[#18243a]">
-      <BackGroundTextBox text="GAMER SEARCHING" />
-      <QueueHeader />
-      <QueueLayout />
+    <div className="relative flex items-center justify-center w-full h-full px-[16px]">
+      <GameSelectBox games={games} />
     </div>
   )
 }

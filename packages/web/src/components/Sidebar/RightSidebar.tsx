@@ -1,12 +1,15 @@
 'use client'
 
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+
+import { useEffect, useState } from 'react'
 
 import { friendsWithBasicDataType } from '@/lib/getFriendsData'
 
 import FriendsList from '../Friends/FriendsList'
-
 import { ChatRightSide } from './ChatRightSide'
+
 import styles from './Sidebar.module.css'
 
 const DefaultRightSide = ({
@@ -16,36 +19,57 @@ const DefaultRightSide = ({
 }) => {
   return (
     <section>
-      <div className={styles['side-title']}>Friends</div>
-      <FriendsList items={friendsList} />
+      <div className={styles['side-title']}>
+        Friends
+        <Link href="/dashboard/friends-list?type=all" className={styles.more}>
+          More
+        </Link>
+      </div>
+      {friendsList.length > 0 ? (
+        <FriendsList items={friendsList} />
+      ) : (
+        <div className={styles.friend}>
+          <h4 className={styles['friend-title']}>아직 친구가 없어요...</h4>
+          <p className={styles['friend-text']}>
+            친구가 생기면 여기에 표시돼요!
+          </p>
+        </div>
+      )}
     </section>
   )
 }
 
 export default function RightSidebar({
   token,
-  isChatPage,
-  isGroupChatPage,
   friendsList,
 }: {
   token: string
-  isChatPage: boolean
-  isGroupChatPage: boolean
   friendsList: friendsWithBasicDataType[]
 }) {
-  // FIXME: 이걸 같이 관리하는게 네브바에 있어야 함. 열고 닫을 수 있게 => 친구 아이콘으로 하기
-  // const [rightSide, setRightSide] = useState(false)
-
   const pathName = usePathname()
-  const pathParts = pathName.split('/')
+  const [roomNumber, setRoomNumber] = useState<string>('')
 
-  const roomNumber = pathParts.at(-1) ?? ''
+  const [isChatPage, setIsChatPage] = useState(false)
+  const [isGroupChatPage, setIsGroupChatPage] = useState(false)
+
+  useEffect(() => {
+    const pathParts = pathName.split('/')
+    setRoomNumber(pathParts.at(-1) ?? '')
+
+    if (pathParts.includes('chat')) {
+      setIsChatPage(true)
+    } else {
+      setIsChatPage(false)
+    }
+    if (pathParts.includes('group')) {
+      setIsGroupChatPage(true)
+    } else {
+      setIsGroupChatPage(false)
+    }
+  }, [pathName])
 
   return (
-    <section
-      className={`${styles['right-side']}`}
-      // className={`${styles['right-side']} ${rightSide && `${styles.active}`}`}
-    >
+    <section className={`${styles['right-side']} right-side`}>
       <div className={styles['side-wrapper']}>
         {isGroupChatPage ? (
           <ChatRightSide

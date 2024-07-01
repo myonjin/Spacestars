@@ -1,7 +1,5 @@
 import { getServerSession } from 'next-auth/next'
 
-import { headers } from 'next/headers'
-
 import { options } from '../api/auth/[...nextauth]/options'
 
 import RightSidebar from '@/components/Sidebar/RightSidebar'
@@ -17,13 +15,12 @@ export default async function layout({
   const session = await getServerSession(options)
   const token = session?.user?.data.accessToken
 
-  const headersList = headers()
-  const headerPathname = headersList.get('x-pathname') || ''
-  const isChatPage = headerPathname.includes('chat')
-  const isGroupChatPage = headerPathname.includes('group')
-
   // 내 친구 리스트
   const friendsList = await getFriendsDataList()
+
+  if (!session) {
+    return <div></div>
+  }
 
   return (
     <main className="flex w-full h-[calc(100vh_-_100px)] overflow-hidden mx-auto my-0">
@@ -31,8 +28,6 @@ export default async function layout({
       {children}
       <RightSidebar
         token={token}
-        isChatPage={isChatPage}
-        isGroupChatPage={isGroupChatPage}
         friendsList={friendsList ? friendsList : []}
       />
     </main>
