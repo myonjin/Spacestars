@@ -11,7 +11,7 @@ export async function checkNickname(nickname: string) {
     }
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return false
   }
 }

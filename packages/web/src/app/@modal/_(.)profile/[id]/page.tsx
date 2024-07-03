@@ -39,7 +39,7 @@ async function fetchPlayGames(playGames: PlayGameType[]) {
 
     return results
   } catch (error) {
-    console.error('Failed to fetch game and option data: ', error)
+    // console.error('Failed to fetch game and option data: ', error)
     return []
   }
 }

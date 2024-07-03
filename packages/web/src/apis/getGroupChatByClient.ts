@@ -16,7 +16,7 @@ export async function getGroupChatInfo(roomNumber: string, token: string) {
     const data = await response.json()
     return data.result
   } catch (err) {
-    console.error(err)
+    // console.error(err)
     return null
   }
 }

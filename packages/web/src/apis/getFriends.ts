@@ -37,7 +37,7 @@ export async function getFriendType(
     const data = await response.json()
     return data
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -74,7 +74,7 @@ export async function getFriendsList(
     const data = await response.json()
     return data
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -107,7 +107,7 @@ export async function getFriendsSendList(_token?: string) {
     const data = await response.json()
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -140,7 +140,7 @@ export async function getFriendsRequestList(_token?: string) {
     const data = await response.json()
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }

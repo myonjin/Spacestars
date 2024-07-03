@@ -37,7 +37,7 @@ export async function createUser(
       message: res.message as string,
     }
   } catch (error) {
-    console.error('Join Error:', error)
+    // console.error('Join Error:', error)
   }
 
   return {

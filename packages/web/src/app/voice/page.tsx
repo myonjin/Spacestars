@@ -10,7 +10,9 @@ export default function Home() {
   const remoteVideoContainerRef = useRef<HTMLDivElement>(null)
   const remoteVideoRefs = useRef<Map<string, HTMLVideoElement>>(new Map())
   const [localStream, setLocalStream] = useState<MediaStream | null>(null)
-  const [peerInfo, setPeerInfo] = useState<Map<string, RTCPeerConnection>>(new Map())
+  const [peerInfo, setPeerInfo] = useState<Map<string, RTCPeerConnection>>(
+    new Map(),
+  )
   const [roomId, setRoomId] = useState<string>('')
   const [otherKeyList, setOtherKeyList] = useState<string[]>([])
   const [myKey] = useState<string>(uuidv4())
@@ -30,18 +32,21 @@ export default function Home() {
           localVideoRef.current.srcObject = stream
         }
         setLocalStream(stream)
-        console.log('Local stream set', stream)
+        // console.log('Local stream set', stream)
       } catch (error) {
-        console.error('Error accessing media devices.', error)
+        // console.error('Error accessing media devices.', error)
       }
     }
 
     getMedia()
   }, [])
 
-  const onIceCandidate = (iceEvent: RTCPeerConnectionIceEvent, otherKey: string) => {
+  const onIceCandidate = (
+    iceEvent: RTCPeerConnectionIceEvent,
+    otherKey: string,
+  ) => {
     if (iceEvent.candidate) {
-      console.log(`Sending ICE candidate to ${otherKey}`, iceEvent.candidate)
+      // console.log(`Sending ICE candidate to ${otherKey}`, iceEvent.candidate)
       stompClient.current?.publish({
         destination: `/pub/peer/iceCandidate/${otherKey}/${roomId}`,
         body: JSON.stringify({
@@ -53,7 +58,7 @@ export default function Home() {
   }
 
   const onTrack = (trackEvent: RTCTrackEvent, otherKey: string) => {
-    console.log(`Received remote track from ${otherKey}`, trackEvent.streams)
+    // console.log(`Received remote track from ${otherKey}`, trackEvent.streams)
     const [stream] = trackEvent.streams
     let video = remoteVideoRefs.current.get(otherKey)
 
@@ -76,12 +81,14 @@ export default function Home() {
       }
 
       remoteVideoRefs.current.set(otherKey, video)
-      console.log(`Added remote video for ${otherKey}`)
+      // console.log(`Added remote video for ${otherKey}`)
     }
   }
 
-  const createPeerConnection = async (otherKey: string): Promise<RTCPeerConnection> => {
-    console.log(`Creating peer connection for ${otherKey}`)
+  const createPeerConnection = async (
+    otherKey: string,
+  ): Promise<RTCPeerConnection> => {
+    // console.log(`Creating peer connection for ${otherKey}`)
     const pc = new RTCPeerConnection(config)
     pc.addEventListener('icecandidate', (event) => {
       onIceCandidate(event, otherKey)
@@ -93,20 +100,23 @@ export default function Home() {
       localStream.getTracks().forEach((track) => {
         pc.addTrack(track, localStream)
       })
-      console.log('Local stream tracks added to peer connection')
+      // console.log('Local stream tracks added to peer connection')
     }
     return pc
   }
 
-  const setLocalAndSendMessage = (pc: RTCPeerConnection, sessionDescription: RTCSessionDescriptionInit) => {
+  const setLocalAndSendMessage = (
+    pc: RTCPeerConnection,
+    sessionDescription: RTCSessionDescriptionInit,
+  ) => {
     pc.setLocalDescription(sessionDescription)
-    console.log('Local description set and sent', sessionDescription)
+    // console.log('Local description set and sent', sessionDescription)
   }
 
   const sendAnswer = (pc: RTCPeerConnection, otherKey: string) => {
     pc.createAnswer().then((answer) => {
       setLocalAndSendMessage(pc, answer)
-      console.log(`Sending answer to ${otherKey}`, answer)
+      // console.log(`Sending answer to ${otherKey}`, answer)
       stompClient.current?.publish({
         destination: `/pub/peer/answer/${otherKey}/${roomId}`,
         body: JSON.stringify({
@@ -122,20 +132,20 @@ export default function Home() {
     stompClient.current = new Client({
       webSocketFactory: () => socket,
       debug: (str) => {
-        console.log(str)
+        // console.log(str)
       },
       onConnect: (frame) => {
-        console.log(`Connected to server ${frame.headers.server}`)
-        console.log('Connected to WebRTC server')
+        // console.log(`Connected to server ${frame.headers.server}`)
+        // console.log('Connected to WebRTC server')
 
         stompClient.current?.subscribe(
           `/sub/peer/iceCandidate/${myKey}/${roomId}`,
           (message) => {
-            console.log('Received ICE candidate message')
+            // console.log('Received ICE candidate message')
             const { key, body: candidate } = JSON.parse(message.body)
             const pc = peerInfo.get(key)
             if (pc) {
-              console.log(`Adding ICE candidate for ${key}`, candidate)
+              // console.log(`Adding ICE candidate for ${key}`, candidate)
               pc.addIceCandidate(
                 new RTCIceCandidate({
                   candidate: candidate.candidate,
@@ -150,7 +160,7 @@ export default function Home() {
         stompClient.current?.subscribe(
           `/sub/peer/offer/${myKey}/${roomId}`,
           async (message) => {
-            console.log('Received offer message')
+            // console.log('Received offer message')
             const { key, body: offer } = JSON.parse(message.body)
             const pc = await createPeerConnection(key)
             if (
@@ -166,9 +176,9 @@ export default function Home() {
               sendAnswer(pc, key)
               setPeerInfo(new Map(peerInfo.set(key, pc)))
             } else {
-              console.warn(
-                `Cannot set remote description in signaling state: ${pc.signalingState}`,
-              )
+              // console.warn(
+              //   `Cannot set remote description in signaling state: ${pc.signalingState}`,
+              // )
             }
           },
         )
@@ -176,26 +186,26 @@ export default function Home() {
         stompClient.current?.subscribe(
           `/sub/peer/answer/${myKey}/${roomId}`,
           (message) => {
-            console.log('Received answer message')
+            // console.log('Received answer message')
             const { key, body: answer } = JSON.parse(message.body)
             const pc = peerInfo.get(key)
             if (pc) {
               if (pc.signalingState === 'have-local-offer') {
                 pc.setRemoteDescription(new RTCSessionDescription(answer))
-                console.log(`Set remote description for ${key}`, answer)
+                // console.log(`Set remote description for ${key}`, answer)
               } else {
-                console.warn(
-                  `Cannot set remote description in signaling state: ${pc.signalingState}`,
-                )
+                // console.warn(
+                //   `Cannot set remote description in signaling state: ${pc.signalingState}`,
+                // )
               }
             } else {
-              console.warn(`PeerConnection for key ${key} not found`)
+              // console.warn(`PeerConnection for key ${key} not found`)
             }
           },
         )
 
         stompClient.current?.subscribe(`/sub/call/key`, () => {
-          console.log('Received call key request')
+          // console.log('Received call key request')
           stompClient.current?.publish({
             destination: '/pub/send/key',
             body: JSON.stringify(myKey),
@@ -203,7 +213,7 @@ export default function Home() {
         })
 
         stompClient.current?.subscribe(`/sub/send/key`, (message) => {
-          console.log('Received send key message')
+          // console.log('Received send key message')
           const key = JSON.parse(message.body)
           if (myKey !== key && !otherKeyList.includes(key)) {
             setOtherKeyList((prev) => [...prev, key])
@@ -226,7 +236,7 @@ export default function Home() {
   const sendOffer = (pc: RTCPeerConnection, otherKey: string) => {
     pc.createOffer().then((offer) => {
       setLocalAndSendMessage(pc, offer)
-      console.log(`Sending offer to ${otherKey}`, offer)
+      // console.log(`Sending offer to ${otherKey}`, offer)
       stompClient.current?.publish({
         destination: `/pub/peer/offer/${otherKey}/${roomId}`,
         body: JSON.stringify({
@@ -243,7 +253,7 @@ export default function Home() {
 
   const startStreams = async () => {
     if (stompClient.current && stompClient.current.active) {
-      console.log('Publishing call key request')
+      // console.log('Publishing call key request')
       stompClient.current.publish({
         destination: '/pub/call/key',
         body: JSON.stringify({}),
@@ -258,7 +268,7 @@ export default function Home() {
         })
       }, 1000)
     } else {
-      console.error('STOMP client is not connected')
+      // console.error('STOMP client is not connected')
     }
   }
 
@@ -288,7 +298,7 @@ export default function Home() {
     })
     remoteVideoRefs.current.clear()
 
-    console.log('Disconnected from room')
+    // console.log('Disconnected from room')
   }
 
   return (

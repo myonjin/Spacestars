@@ -9,7 +9,7 @@ export async function fetchLikedGames(likedGames: number[]) {
     // null값 제거
     return gameInfos.filter(Boolean)
   } catch (err) {
-    console.error('Faild to fetchLikedGames', err)
+    // console.error('Faild to fetchLikedGames', err)
     return []
   }
 }
@@ -47,7 +47,7 @@ export async function fetchPlayGames(playGames: PlayGameType[]) {
 
     return results
   } catch (error) {
-    console.error('Failed to fetch game and option data: ', error)
+    // console.error('Failed to fetch game and option data: ', error)
     return []
   }
 }

@@ -11,6 +11,6 @@ export async function createNewProfile(token: string) {
       },
     })
   } catch (e) {
-    console.error(e)
+    // console.error(e)
   }
 }

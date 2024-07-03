@@ -37,7 +37,7 @@ export default async function Page({
   )
 
   if (!response.ok) {
-    console.error('Failed to fetch friends list')
+    // console.error('Failed to fetch friends list')
     return null
   }
 
@@ -54,7 +54,7 @@ export default async function Page({
 
   return (
     <section className="flex-1 px-[50px] py-[42px] h-full overflow-auto">
-      <div className="flex justify-end items-center mb-8">
+      <div className="flex items-center justify-end mb-8">
         <SearchBox />
       </div>
       <FriendTabs type={query.type} />

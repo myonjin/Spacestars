@@ -39,7 +39,7 @@ export async function getMainGame(
 
     return await response.json()
   } catch (e) {
-    console.error(e)
+    // console.error(e)
     return
   }
 }
@@ -70,7 +70,7 @@ export async function getProfileInfo(
     }
     return await response.json()
   } catch (e) {
-    console.error(e)
+    // console.error(e)
     return
   }
 }
@@ -101,7 +101,7 @@ export async function getPlayGame(
     }
     return await response.json()
   } catch (e) {
-    console.error(e)
+    // console.error(e)
     return
   }
 }
@@ -132,7 +132,7 @@ export async function getLikedGame(
     }
     return await response.json()
   } catch (e) {
-    console.error(e)
+    // console.error(e)
     return
   }
 }

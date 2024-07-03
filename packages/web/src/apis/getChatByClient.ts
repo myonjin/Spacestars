@@ -29,7 +29,7 @@ export async function getRecentMessage(
     const data = await response.json()
     return data.result
   } catch (err) {
-    console.error(err)
+    // console.error(err)
     return null
   }
 }
@@ -83,7 +83,7 @@ export async function getRecentMessageByTeam(
     const data = await response.json()
     return data.result
   } catch (err) {
-    console.error(err)
+    // console.error(err)
     return null
   }
 }

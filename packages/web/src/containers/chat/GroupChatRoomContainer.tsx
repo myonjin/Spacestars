@@ -92,11 +92,17 @@ export default function GroupChatRoomContainer({
       <GroupChatInputBox roomNumber={roomNumber} UUID={UUID}>
         <GroupChatInputBox.IconBtn
           icon={<FileIcon />}
-          handleClick={() => console.log('file')}
+          handleClick={
+            () => {}
+            // console.log('file')
+          }
         />
         <GroupChatInputBox.IconBtn
           icon={<EmojiIcon />}
-          handleClick={() => console.log('emoji')}
+          handleClick={
+            () => {}
+            // console.log('emoji')
+          }
         />
       </GroupChatInputBox>
     </div>

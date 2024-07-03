@@ -19,7 +19,7 @@ export async function getUnreadMessage(roomNumber: string, token: string) {
 
     return await response.json()
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -42,7 +42,7 @@ export async function getReadMessage(roomNumber: string, token: string) {
 
     return await response.json()
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -69,7 +69,7 @@ export async function getUnreadMessageByTeam(
 
     return await response.json()
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -77,23 +77,20 @@ export async function getUnreadMessageByTeam(
 /** 팀채팅 읽은 메시지 조회 */
 export async function getReadMessageByTeam(roomNumber: string, token: string) {
   try {
-    const response = await fetch(
-      `${BASE_URL}/team/message/${roomNumber}`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: token ? token : '',
-        },
+    const response = await fetch(`${BASE_URL}/team/message/${roomNumber}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token ? token : '',
       },
-    )
-    
+    })
+
     if (!response.ok) {
       throw new Error('Failed to getReadMessage')
     }
 
     return await response.json()
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }

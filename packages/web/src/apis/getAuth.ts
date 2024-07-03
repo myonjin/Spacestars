@@ -32,7 +32,7 @@ export async function getAuthProfile(
 
     return await response.json()
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -64,7 +64,7 @@ export async function getProfileByUuid(
 
     return await response.json()
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }

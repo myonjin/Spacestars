@@ -16,7 +16,7 @@ export async function getMbtiList(): Promise<MbtiType[]> {
     }
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return []
   }
 }
@@ -35,7 +35,7 @@ export async function getMbtiById(id: number): Promise<MbtiNameType | null> {
     }
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return null
   }
 }

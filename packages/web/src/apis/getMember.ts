@@ -35,7 +35,7 @@ export async function getUuidByNickname(
 
     return await response.json()
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }

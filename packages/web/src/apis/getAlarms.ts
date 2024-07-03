@@ -17,15 +17,15 @@ export async function getAlarms(
     })
 
     if (!response.ok) {
-      console.error('Failed to fetch alarms, Response Status:', response.status) // 응답 실패 로그
-      console.error('Error Response:', response) // 에러 응답 본문 로그
+      // console.error('Failed to fetch alarms, Response Status:', response.status) // 응답 실패 로그
+      // console.error('Error Response:', response) // 에러 응답 본문 로그
       throw new Error('Failed to get alarm list')
     }
     const data = await response.json()
     // console.log("API Response Data: ", data);
     return data.result.alarmList
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -47,7 +47,7 @@ export async function getNicknameByUuid(
     }
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return null
   }
 }
@@ -76,7 +76,7 @@ export async function getProfileImageByUuid(
     }
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return null
   }
 }

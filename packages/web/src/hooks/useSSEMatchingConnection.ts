@@ -24,16 +24,16 @@ export const useSSEMatchingConnection = (uuid: string, gameName: string) => {
             )
 
             es.onopen = () => {
-              console.log('SSE connection opened successfully')
+              // console.log('SSE connection opened successfully')
               setIsConnected(true)
             }
 
             es.onmessage = (event) => {
-              console.log(event.data)
+              // console.log(event.data)
             }
 
             es.onerror = (error) => {
-              console.error('EventSource failed:', error)
+              // console.error('EventSource failed:', error)
               es.close()
               setIsConnected(false)
               setShowErrorModal(true)
@@ -42,7 +42,7 @@ export const useSSEMatchingConnection = (uuid: string, gameName: string) => {
             setEventSource(es)
           })
           .catch((error) => {
-            console.error('Failed to load EventSourcePolyfill:', error)
+            // console.error('Failed to load EventSourcePolyfill:', error)
             setIsConnected(false)
             setShowErrorModal(true)
           })
@@ -53,7 +53,7 @@ export const useSSEMatchingConnection = (uuid: string, gameName: string) => {
 
     return () => {
       if (eventSource) {
-        console.log('SSE closed')
+        // console.log('SSE closed')
         eventSource.close()
         setEventSource(null)
         setIsConnected(false)

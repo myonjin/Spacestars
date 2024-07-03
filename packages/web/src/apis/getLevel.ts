@@ -22,7 +22,7 @@ export async function getLevel() {
     const data = await response.json()
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -49,7 +49,7 @@ export async function getExp() {
     const data = await response.json()
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -76,7 +76,7 @@ export async function getLevelInfo(level: number) {
     const data = await response.json()
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }

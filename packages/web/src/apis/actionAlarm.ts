@@ -11,7 +11,7 @@ export async function closeSseConnection(uuid: string) {
     })
 
     if (!response.ok) {
-      console.error(`Response not OK. Status: ${response.status}`)
+      // console.error(`Response not OK. Status: ${response.status}`)
       throw new Error(
         `Failed to close connection with status ${response.status}`,
       )
@@ -21,7 +21,7 @@ export async function closeSseConnection(uuid: string) {
     // console.log("API Response Data: ", data);
     return data.message
   } catch (error) {
-    console.error('Error closing connection:', error)
+    // console.error('Error closing connection:', error)
     return
   }
 }
@@ -52,7 +52,7 @@ export async function modifyAlamrState(
 
     return await response.json()
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }

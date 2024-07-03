@@ -60,6 +60,6 @@ export async function updateProfile(
       updateMbti(mbtiId, token),
     ])
   } catch (err) {
-    console.error('Error updating user profile:', err)
+    // console.error('Error updating user profile:', err)
   }
 }

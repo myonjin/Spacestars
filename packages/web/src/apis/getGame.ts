@@ -14,7 +14,7 @@ export async function getGames(): Promise<GameTypes[]> {
 
     return data.result
   } catch (err) {
-    console.error(err)
+    // console.error(err)
     return []
   }
 }
@@ -31,7 +31,7 @@ export async function getGameById(gameId: number): Promise<GameType | null> {
 
     return data.result
   } catch (err) {
-    console.error(err)
+    // console.error(err)
     return null
   }
 }
@@ -56,7 +56,7 @@ export async function getGameOptions(
 
     return data.result
   } catch (err) {
-    console.error(err)
+    // console.error(err)
     return
   }
 }
@@ -92,7 +92,7 @@ export async function getGameOptionDetail(
 
     return data.result
   } catch (err) {
-    console.error(err)
+    // console.error(err)
     return []
   }
 }
@@ -120,7 +120,7 @@ export async function getOptionDetail(
 
     return data.result
   } catch (err) {
-    console.error(err)
+    // console.error(err)
     return []
   }
 }

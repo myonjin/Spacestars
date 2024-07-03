@@ -89,11 +89,17 @@ export default function ChatRoomContainer({
       <ChatInputBox roomNumber={roomNumber} UUID={UUID}>
         <ChatInputBox.IconBtn
           icon={<FileIcon />}
-          handleClick={() => console.log('file')}
+          handleClick={
+            () => {}
+            // console.log('file')
+          }
         />
         <ChatInputBox.IconBtn
           icon={<EmojiIcon />}
-          handleClick={() => console.log('emoji')}
+          handleClick={
+            () => {}
+            // console.log('emoji')
+          }
         />
       </ChatInputBox>
     </div>

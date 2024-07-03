@@ -50,7 +50,7 @@ export async function postSwipe(
 
     return { ...data }
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return {
       code: 0,
       message: '다시 시도해주세요',

@@ -29,7 +29,7 @@ export async function getSwipeList(pageSize: number, page: number) {
     const data = await response.json()
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return undefined
   }
 }
@@ -59,7 +59,7 @@ export async function getSwipeListByAI(pageSize: number, page: number) {
     const data = await response.json()
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return undefined
   }
 }

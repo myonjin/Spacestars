@@ -40,7 +40,7 @@ export async function getMainProfileImage(
     }
     return data
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return undefined
   }
 }
@@ -73,7 +73,7 @@ export async function getProfileImages(
     }
     return await response.json()
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return undefined
   }
 }
@@ -104,7 +104,7 @@ export async function getMainProfileImageByUuid(
     }
     return await response.json()
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return undefined
   }
 }
@@ -135,7 +135,7 @@ export async function getProfileImagesByUuid(
     }
     return await response.json()
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }

@@ -19,7 +19,7 @@ export async function getMainProfileImageByUuid(uuid: string, token: string) {
     }
     return await response.json()
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return undefined
   }
 }
@@ -39,7 +39,7 @@ export async function getProfileByUuid(uuid: string, token: string) {
 
     return await response.json()
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }

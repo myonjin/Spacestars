@@ -20,7 +20,7 @@ async function fetchAllPlayGames(profileDataList: any) {
       const gameData = await fetchPlayGames(profile.playGames)
       results.push(gameData)
     } catch (error) {
-      console.error(error)
+      // console.error(error)
     }
   }
 
@@ -35,7 +35,7 @@ async function fetchAllMBTI(profileDataList: any) {
       const mbtiName = await getMbtiById(profile.profileInfo.mbtiId)
       results.push(mbtiName?.mbtiName ?? '')
     } catch (error) {
-      console.error(error)
+      // console.error(error)
     }
   }
   return results
@@ -62,10 +62,10 @@ async function getLevel(uuid: string) {
     }
 
     const data = await response.json()
-    console.log(data)
+    // console.log(data)
     return data
   } catch (e) {
-    console.error(e)
+    // console.error(e)
     return
   }
 }
@@ -84,7 +84,7 @@ export default async function page({
       try {
         return await getAllProfileDataByUuid(uuid)
       } catch (error) {
-        console.error(`Error profileDataList: ${uuid}`, error)
+        // console.error(`Error profileDataList: ${uuid}`, error)
         return null
       }
     }),

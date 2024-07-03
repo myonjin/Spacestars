@@ -42,7 +42,7 @@ export async function createProfileImage(req: ReqType, _token?: string) {
 
     return data
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return undefined
   }
 }

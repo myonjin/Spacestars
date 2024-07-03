@@ -41,7 +41,7 @@ export default function WebSocketProvider({
         setStompClient(client)
       },
       (error: any) => {
-        console.error('WebSocket connection error:', error)
+        // console.error('WebSocket connection error:', error)
       },
     )
 

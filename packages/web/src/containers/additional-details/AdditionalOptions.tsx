@@ -18,7 +18,7 @@ const GameOption = ({ item }: { item: GameTypes }) => {
     const getIsOption = async () => {
       const isOptions = await getGameOptions(item.gameId)
       if (isOptions === undefined) {
-        console.log('no options')
+        // console.log('no options')
       } else {
         const optionList: OptionType[] = []
         Object.entries(isOptions).forEach(([key, value]) => {

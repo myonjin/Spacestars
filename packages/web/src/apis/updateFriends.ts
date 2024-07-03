@@ -30,7 +30,7 @@ export async function sendFriendRequest(uuid: string) {
     const data = await response.json()
     return data
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -60,7 +60,7 @@ export async function rejectFriendRequest(uuid: string) {
     const data = await response.json()
     return data
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -90,7 +90,7 @@ export async function acceptFriendRequest(uuid: string) {
     const data = await response.json()
     return data
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -120,7 +120,7 @@ export async function deleteFriendRequest(uuid: string) {
     const data = await response.json()
     return data
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }

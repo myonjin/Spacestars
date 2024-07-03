@@ -27,7 +27,7 @@ async function getAuthByUuid(
 
     return data
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -50,7 +50,7 @@ async function getProfileInfoByUuidClient(
     }
     return await response.json()
   } catch (e) {
-    console.error(e)
+    // console.error(e)
     return
   }
 }
@@ -71,7 +71,7 @@ async function getMainProfileImageByUuid(
     }
     return await response.json()
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return undefined
   }
 }

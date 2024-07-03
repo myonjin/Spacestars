@@ -41,7 +41,7 @@ async function searchByNickname(
     const data = await response.json()
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return []
   }
 }
@@ -68,7 +68,7 @@ async function getMainProfileImageByUuid(
     const data = await response.json()
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return undefined
   }
 }

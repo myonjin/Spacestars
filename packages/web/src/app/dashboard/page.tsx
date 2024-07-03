@@ -35,7 +35,7 @@ async function getLevel() {
     const data = await response.json()
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -63,7 +63,7 @@ async function getExp() {
     const data = await response.json()
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -90,7 +90,7 @@ async function getLevelInfo(level: number) {
     const data = await response.json()
     return data.result
   } catch (error) {
-    console.error(error)
+    // console.error(error)
     return
   }
 }
@@ -113,7 +113,7 @@ export default async function page() {
       try {
         return await getBasicUserData(uuid)
       } catch (error) {
-        console.error(`Error getSwipeList: ${uuid}`, error)
+        // console.error(`Error getSwipeList: ${uuid}`, error)
         return null
       }
     }),

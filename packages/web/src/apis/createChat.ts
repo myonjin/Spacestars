@@ -30,7 +30,7 @@ export async function createOnetoOneChat(uuid: string) {
     // 채팅방 생성 성공
     return await response.json()
   } catch (error) {
-    console.error(error)
+    // console.error(error)
   }
 }
 
@@ -61,7 +61,7 @@ export async function createTeam(prevState: unknown, formData: FormData) {
 
     return { ...res }
   } catch (error) {
-    console.error('createTeam:', error)
+    // console.error('createTeam:', error)
     return {
       code: -1,
       message: '채팅방 생성에 실패했습니다. 다시 시도해주세요.',
@@ -93,7 +93,7 @@ export async function joinTeamForm(prevState: unknown, formData: FormData) {
 
     return { ...res }
   } catch (error) {
-    console.error('joinTeam:', error)
+    // console.error('joinTeam:', error)
   }
 }
 
@@ -116,6 +116,6 @@ export async function joinTeam(roomNumber: string) {
 
     return { ...res }
   } catch (error) {
-    console.error('joinTeam:', error)
+    // console.error('joinTeam:', error)
   }
 }

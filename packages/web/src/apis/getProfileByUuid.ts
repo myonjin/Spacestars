@@ -38,7 +38,7 @@ export async function getProfileInfoByUuid(
     }
     return await response.json()
   } catch (e) {
-    console.error(e)
+    // console.error(e)
     return
   }
 }
@@ -70,7 +70,7 @@ export async function getPlayGameByUuid(
     }
     return await response.json()
   } catch (e) {
-    console.error(e)
+    // console.error(e)
     return
   }
 }
@@ -102,7 +102,7 @@ export async function getLikedGameByUuid(
     }
     return await response.json()
   } catch (e) {
-    console.error(e)
+    // console.error(e)
     return
   }
 }

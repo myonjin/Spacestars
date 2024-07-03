@@ -40,7 +40,7 @@ async function getToken(email: string): Promise<AuthType | undefined> {
       return res.result
     }
   } catch (err) {
-    console.error('getToken error', err)
+    // console.error('getToken error', err)
   }
 }
 
@@ -61,7 +61,7 @@ const signUpWithImage = async (email: string) => {
       createProfileImage(profile, accessToken)
     }
   } catch (err) {
-    console.error('signUp error', err)
+    // console.error('signUp error', err)
   }
 }
 
@@ -79,7 +79,7 @@ const createProfile = async (email: string) => {
       }
     }
   } catch (err) {
-    console.error('createProfile error', err)
+    // console.error('createProfile error', err)
   }
 }
 

@@ -32,7 +32,7 @@ export async function exitChatRoom(roomNumber: string) {
 
     return data
   } catch (err) {
-    console.error(err)
+    // console.error(err)
   }
 }
 
@@ -63,6 +63,6 @@ export async function enteredQueue(gameName: string) {
 
     return data
   } catch (err) {
-    console.error(err)
+    // console.error(err)
   }
 }
